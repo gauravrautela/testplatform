@@ -2,3 +2,8 @@ git clone https://github.com/gauravrautela/testplatform.git
 echo "excuting inside the script1"
 cd testplatform
 sh hello.sh
+mkdir abcd
+cp hello.sh abcd/
+cd abcd
+ls
+sh hello.sh
