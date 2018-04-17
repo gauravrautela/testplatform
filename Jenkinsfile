@@ -11,16 +11,16 @@ pipeline {
   stages {
 
     stage('Run first script') {
-    timeout(time: 60, unit: 'SECONDS') {
           steps {
+   	 timeout(time: 60, unit: 'SECONDS') {
               sh 'sh script1'
           }
       }
 	}
 
    stage('Run second script') {
-    timeout(time: 60, unit: 'SECONDS') {
               steps {
+    timeout(time: 60, unit: 'SECONDS') {
                   sh 'sh script2'
               }
           }
