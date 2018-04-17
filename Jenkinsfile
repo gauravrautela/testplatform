@@ -10,20 +10,21 @@ pipeline {
 
   stages {
 
-    timeout(time: 60, unit: 'SECONDS') {
     stage('Run first script') {
+    timeout(time: 60, unit: 'SECONDS') {
           steps {
               sh 'sh script1'
           }
       }
-}
-  timeout(time: 60, unit: 'SECONDS') { 
+	}
+
    stage('Run second script') {
+    timeout(time: 60, unit: 'SECONDS') {
               steps {
                   sh 'sh script2'
               }
           }
-}
+	}
 
 
     }
