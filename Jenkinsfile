@@ -10,7 +10,7 @@ pipeline {
 
   stages {
 
-    stage('') {
+    stage('SCM checkout') {
           steps {
 		timestamps {
    	 timeout(time: 60, unit: 'SECONDS') {
@@ -20,7 +20,7 @@ pipeline {
 	}
 	}
 
-   stage('Run second script') {
+   stage('CODE buiding deploy') {
               steps {
     timeout(time: 60, unit: 'SECONDS') {
                   sh 'sh script2'
