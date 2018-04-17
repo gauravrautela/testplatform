@@ -10,15 +10,17 @@ pipeline {
 
   stages {
 
-    stage('Downloading code from repo') {
+    stage('') {
           steps {
+		timestamps {
    	 timeout(time: 60, unit: 'SECONDS') {
               sh 'sh script1'
           }
       }
 	}
+	}
 
-   stage('Excute script ') {
+   stage('Run second script') {
               steps {
     timeout(time: 60, unit: 'SECONDS') {
                   sh 'sh script2'
