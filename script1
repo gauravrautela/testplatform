@@ -1,1 +1,4 @@
-echo "hello script 1"
+git clone https://github.com/gauravrautela/testplatform.git
+echo "excuting inside the script1"
+cd testplatform
+sh hello.sh
