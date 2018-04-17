@@ -13,13 +13,13 @@ pipeline {
 
     stage('Run first script') {
           steps {
-              sh 'script1'
+              sh 'sh script1'
           }
       }
 
     stage('Run second script') {
               steps {
-                  sh 'script2'
+                  sh 'sh script2'
               }
           }
 
