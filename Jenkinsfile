@@ -1,4 +1,7 @@
 pipeline {
+
+ agent { node { label 'master' } }
+
   stages {
 
     stage('SCM checkout') {
@@ -14,7 +17,7 @@ pipeline {
    stage('CODE buiding deploy') {
               steps {
     timeout(time: 60, unit: 'SECONDS') {
-                  sh 'sh script2'
+                  sh './hello.sh'
               }
           }
 	}
@@ -34,8 +37,13 @@ pipeline {
       unstable {
             mail to: 'gauravrautela16@gmail.com',
             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-            body: "Something is wrong with ${env.BUILD_URL}"
+            body: "Something is wrong with ${env.BUILD_URL} ${BUILD_LOG, maxLines=50, escapeHtml=false}"
            }
+      success {
+                 mail to: 'gauravrautela16@gmail.com',
+                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                 body: "Something is wrong with ${env.BUILD_URL} ${BUILD_LOG, maxLines=50, escapeHtml=false}"
+                }
           }
 
         }
