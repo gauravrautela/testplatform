@@ -1,13 +1,4 @@
 pipeline {
-  agent { node { label 'master' } }
-  triggers {
-    cron('*/10 * * * *')
-    }
-    options {
-      buildDiscarder(logRotator(numToKeepStr: '15', artifactNumToKeepStr: '15'))
-    }
-
-
   stages {
 
     stage('SCM checkout') {
@@ -34,10 +25,6 @@ pipeline {
 
 
     post {
-
-      always  {
-        echo 'cleaning workspace'
-        deleteDir()
               }
 
       failure {
