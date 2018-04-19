@@ -14,7 +14,7 @@ pipeline {
    stage('CODE buiding deploy') {
               steps {
     timeout(time: 60, unit: 'SECONDS') {
-                  sh './hello.sh'
+                  sh 'sh script2'
               }
           }
 	}
