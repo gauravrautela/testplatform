@@ -31,6 +31,19 @@ ok() {
   fi
 }
 
+# fails <message> <args...> — calc.sh prints nothing on stdout, an error
+# containing <message> on stderr, and exits 1.
+fails() {
+  local want=$1
+  shift
+  run "$@"
+  if [[ $status -eq 1 && -z $out && $err == *"$want"* ]]; then
+    pass "calc.sh $* — refused"
+  else
+    fail "calc.sh $* — want an error containing '$want', exit 1; got '$out', exit $status, stderr '$err'"
+  fi
+}
+
 # AC-001, AC-002
 ok 5 2 + 3
 ok 6 10 - 4
@@ -42,6 +55,16 @@ ok "1$zeros" "${zeros//0/9}" + 1
 # AC-003
 ok 12 3 x 4
 ok 12 3 '*' 4
+
+# AC-008, AC-009, AC-010
+fails 'division by zero' 5 / 0
+fails "not a number: 'abc'" 5 + abc
+fails "unknown operator: '%'" 5 % 2
+fails 'missing the second number' 5 +
+# No arguments, four arguments, an empty operand.
+fails 'missing both numbers and the operator'
+fails 'too many arguments' 1 + 2 3
+fails "not a number: ''" '' + 5
 
 echo "$passed passed, $failed failed"
 [[ $failed -eq 0 ]]
