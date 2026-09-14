@@ -66,5 +66,17 @@ fails 'missing both numbers and the operator'
 fails 'too many arguments' 1 + 2 3
 fails "not a number: ''" '' + 5
 
+# AC-004, AC-005
+ok 3.75 1.5 + 2.25
+ok -1 -3 - -2
+# Not numbers: no digit before or after the point, a plus sign, an exponent.
+fails "not a number: '.5'" .5 + 1
+fails "not a number: '5.'" 5. + 1
+fails "not a number: '+5'" +5 + 1
+fails "not a number: '1e3'" 1e3 + 1
+# A zero divisor written with a point or a minus.
+fails 'division by zero' 5 / 0.0
+fails 'division by zero' 5 / -0
+
 echo "$passed passed, $failed failed"
 [[ $failed -eq 0 ]]

@@ -8,8 +8,9 @@
 # stdout, and exits 1.
 
 usage='usage: calc.sh <number> <operator> <number>'
-number='^[0-9]+$'
-zero='^0+$'
+# A number is an optional minus, digits, and an optional .digits.
+number='^-?[0-9]+([.][0-9]+)?$'
+zero='^-?0+([.]0+)?$'
 
 die() {
   echo "calc.sh: $1" >&2
