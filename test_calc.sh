@@ -39,5 +39,9 @@ ok 4 8 / 2
 zeros=$(printf '%080d' 0)
 ok "1$zeros" "${zeros//0/9}" + 1
 
+# AC-003
+ok 12 3 x 4
+ok 12 3 '*' 4
+
 echo "$passed passed, $failed failed"
 [[ $failed -eq 0 ]]
