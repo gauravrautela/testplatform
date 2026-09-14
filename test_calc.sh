@@ -78,5 +78,15 @@ fails "not a number: '1e3'" 1e3 + 1
 fails 'division by zero' 5 / 0.0
 fails 'division by zero' 5 / -0
 
+# AC-006, AC-007
+ok 3.5 7 / 2
+ok 3.33 10 / 3
+ok 0.67 2 / 3
+ok 0.3 0.1 + 0.2
+# Halfway rounds away from zero; a negative zero prints as 0.
+ok 0.13 0.25 / 2
+ok -0.13 -0.25 / 2
+ok 0 -0.001 x 1
+
 echo "$passed passed, $failed failed"
 [[ $failed -eq 0 ]]

@@ -38,9 +38,29 @@ esac
 [[ $b =~ $number ]] || die "not a number: '$b'"
 [[ $op == / && $b =~ $zero ]] && die "division by zero"
 
-# If bc fails (say it is not installed), its own error shows and calc.sh exits
-# with its status, printing no result. bc wraps a long result with "\" and a
-# newline; join it back onto one line.
-result=$(bc <<< "$a $op $b") || exit
+# bc works to 3 places, truncating — enough to decide a halfway case — then
+# rounds half away from zero to 2: it adds 0.005 with the result's sign and
+# truncates. If bc fails (say it is not installed), its own error shows and
+# calc.sh exits with its status, printing no result. bc wraps a long result
+# with "\" and a newline; join it back onto one line.
+program="scale = 3
+x = $a $op $b
+d = 0.005
+if (x < 0) d = -0.005
+scale = 2
+(x + d) / 1"
+result=$(bc <<< "$program") || exit
 result=${result//$'\\\n'/}
+
+# Drop trailing zeros and a bare point, restore the leading 0 bc leaves off,
+# and print a negative zero as 0.
+if [[ $result == *.* ]]; then
+  while [[ $result == *0 ]]; do result=${result%0}; done
+  result=${result%.}
+fi
+case $result in
+  .*) result=0$result ;;
+  -.*) result=-0${result#-} ;;
+  - | -0) result=0 ;;
+esac
 echo "$result"
